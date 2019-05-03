@@ -1,0 +1,1016 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\providecommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{}
+    \pretitle{\vspace{\droptitle}}
+  \posttitle{}
+    \author{}
+    \preauthor{}\postauthor{}
+    \date{}
+    \predate{}\postdate{}
+  
+
+\begin{document}
+
+\subsubsection{행렬과 배열}\label{-}
+
+\textbf{같은 유형의 두 벡터를 결합해서 행렬 생성}
+
+\begin{itemize}
+\tightlist
+\item
+  x, y를 이용하여 열의 개수가 2인 행렬 M 생성
+\item
+  x : 2, 2, 4
+\item
+  y : 1.2, 3, 4.8
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{4}\NormalTok{)}
+\NormalTok{y <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\FloatTok{1.2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\FloatTok{4.8}\NormalTok{)}
+\NormalTok{M <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{c}\NormalTok{(x, y), }\DataTypeTok{ncol=}\DecValTok{2}\NormalTok{, }\DataTypeTok{byrow=}\NormalTok{F) ;M}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2]
+## [1,]    2  1.2
+## [2,]    2  3.0
+## [3,]    4  4.8
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+  \CommentTok{#또는 열결합 함수 cbind(x,y)를 이용할 수도 있다}
+  \CommentTok{#byrow : true->가로방향으로 순차적으로 행렬의 요소를 할당}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{다른 유형의 벡터를 결합하여 리스트생성}
+
+\begin{itemize}
+\tightlist
+\item
+  x, y, a를 결합한 리스트 L 생성
+\item
+  각 벡터(변수)의 이름 x: kor, y: math, a: grade
+\item
+  a : ``low'', ``high'', ``high''
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{a <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"low"}\NormalTok{, }\StringTok{"high"}\NormalTok{, }\StringTok{"high"}\NormalTok{)}
+\NormalTok{L <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\DataTypeTok{kor=}\NormalTok{x, }\DataTypeTok{math=}\NormalTok{y, }\DataTypeTok{grade=}\NormalTok{a) ;L}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $kor
+## [1] 2 2 4
+## 
+## $math
+## [1] 1.2 3.0 4.8
+## 
+## $grade
+## [1] "low"  "high" "high"
+\end{verbatim}
+
+\textbf{자동으로 벡터 생성}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  1에서 시작하여 20까지 1의 간격으로 값을 만드는 함수
+\item
+  1을 10회 반복하여 벡터를 만드는 함수
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#1 }
+\KeywordTok{seq}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{20}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#2}
+\KeywordTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] 1 1 1 1 1 1 1 1 1 1
+\end{verbatim}
+
+\textbf{3차원 배열 생성}
+
+\begin{itemize}
+\tightlist
+\item
+  M1 \textless{}- cbind(c(2, 2, 3), c(1.2, 3.0, 4.8))
+\item
+  M2 \textless{}- cbind(c(1, 2, 3), c(4.2, 2.1, 1.9))
+\item
+  M1과 M2를 결합하여 만든 3x2x2 배열 A
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{M1 <-}\StringTok{ }\KeywordTok{cbind}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\FloatTok{1.2}\NormalTok{, }\FloatTok{3.0}\NormalTok{, }\FloatTok{4.8}\NormalTok{))}
+\NormalTok{M2 <-}\StringTok{ }\KeywordTok{cbind}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\FloatTok{4.2}\NormalTok{, }\FloatTok{2.1}\NormalTok{, }\FloatTok{1.9}\NormalTok{))}
+\NormalTok{A <-}\StringTok{ }\KeywordTok{array}\NormalTok{(}\KeywordTok{c}\NormalTok{(M1, M2), }\KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{)) ;A}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## , , 1
+## 
+##      [,1] [,2]
+## [1,]    2  1.2
+## [2,]    2  3.0
+## [3,]    3  4.8
+## 
+## , , 2
+## 
+##      [,1] [,2]
+## [1,]    1  4.2
+## [2,]    2  2.1
+## [3,]    3  1.9
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsubsection{행렬 관련 함수}\label{--}
+
+\textbf{행렬 M (3x2) 에대해 다음의 함수 호출}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  M1 \textless{}- M의 전치행렬 * M
+\item
+  M1의 역행렬
+\item
+  E \textless{}- M1의 대칭행렬
+\item
+  E를 사용하여 원래 M1 만들기
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{M1 <-}\StringTok{ }\KeywordTok{t}\NormalTok{(M) }\OperatorTok{%*%}\StringTok{ }\NormalTok{M ;M1 }\CommentTok{#전치행렬: 행과 열을 치환}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1]  [,2]
+## [1,] 24.0 27.60
+## [2,] 27.6 33.48
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{solve}\NormalTok{(M1) }\CommentTok{#역행렬}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            [,1]       [,2]
+## [1,]  0.8017241 -0.6609195
+## [2,] -0.6609195  0.5747126
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{E <-}\StringTok{ }\KeywordTok{eigen}\NormalTok{(M1) ;E }\CommentTok{#대칭행렬}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## eigen() decomposition
+## $values
+## [1] 56.744064  0.735936
+## 
+## $vectors
+##           [,1]       [,2]
+## [1,] 0.6444916 -0.7646114
+## [2,] 0.7646114  0.6444916
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{E}\OperatorTok{$}\NormalTok{vectors }\OperatorTok{%*%}\StringTok{ }\KeywordTok{diag}\NormalTok{(E}\OperatorTok{$}\NormalTok{values) }\OperatorTok{%*%}\StringTok{ }\KeywordTok{t}\NormalTok{(E}\OperatorTok{$}\NormalTok{vectors) }\CommentTok{#diag:대각행렬}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1]  [,2]
+## [1,] 24.0 27.60
+## [2,] 27.6 33.48
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsubsection{논리 연산, 결측값,}\label{--}
+
+\textbf{true-false를 1-0으로 바꾸는 함수}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{C <-}\StringTok{ }\KeywordTok{c}\NormalTok{(T, T, F, F)}
+\KeywordTok{as.numeric}\NormalTok{(C)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1 1 0 0
+\end{verbatim}
+
+\textbf{결측값을 포함하는 자료 x에서 결측값을 제거하여 평균 구하기}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{mean}\NormalTok{(x, }\DataTypeTok{na.rm=}\NormalTok{T)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2.666667
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsubsection{factors}\label{factors}
+
+\textbf{수치형 변수를 범주형 변수로 바꾸기}
+
+\begin{itemize}
+\tightlist
+\item
+  species \textless{}- c(1,3,2,3)
+\item
+  species를 1:3 수준의 요인으로 바꾼 species.f를 정의
+\item
+  species.f의 각 수준의 이름을 각각 ``setosa'', ``versicolor'',
+  ``virginica''
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{species <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{)}
+\NormalTok{species.f <-}\StringTok{ }\KeywordTok{factor}\NormalTok{(species, }\DataTypeTok{levels =} \DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{)}
+\KeywordTok{levels}\NormalTok{(species.f) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"species"}\NormalTok{, }\StringTok{"versicolor"}\NormalTok{, }\StringTok{"virginica"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{species.f의 수준별 빈도를 구하는 함수 호출}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{table}\NormalTok{(species.f)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## species.f
+##    species versicolor  virginica 
+##          1          1          2
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsubsection{자료 변환과 데이터 부분세트}\label{---}
+
+\textbf{x와 y를 더하여 tot라는 변수를 만들고 d2에 이 변수를 추가하여
+d2a라는 리스트 만들기}
+
+\begin{itemize}
+\tightlist
+\item
+  x: 45, 32, 34, 28, 80
+\item
+  y: 23, 37, 12, 76, 65
+\item
+  변수명 : kor, eng
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{d2 <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\DataTypeTok{kor =}\NormalTok{ x, }\DataTypeTok{eng =}\NormalTok{ y)}
+\NormalTok{d2a <-}\StringTok{ }\KeywordTok{transform}\NormalTok{(d2, }\DataTypeTok{tot =}\NormalTok{ kor }\OperatorTok{+}\StringTok{ }\NormalTok{eng) ;d2a}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   kor eng tot
+## 1   2 1.2 3.2
+## 2   2 3.0 5.0
+## 3   4 4.8 8.8
+\end{verbatim}
+
+\textbf{d2a의 tot \textgreater{} 100인 레코드만 남긴 d3 생성}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{d3 <-}\StringTok{ }\KeywordTok{subset}\NormalTok{(d2a, tot }\OperatorTok{>}\StringTok{ }\DecValTok{100}\NormalTok{) ;d3}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] kor eng tot
+## <0 rows> (or 0-length row.names)
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsubsection{순서정렬과 순위}\label{-}
+
+\textbf{order()의 용법}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{12}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{7}\NormalTok{,}\DecValTok{8}\NormalTok{)}
+\KeywordTok{order}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3 2 4 5 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#첫번째에 와야할 요소의 위치...}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{순위를 구하는 함수에서 등순위를 처리하는 방법들}
+
+\begin{itemize}
+\tightlist
+\item
+  default - 평균 순위
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{12}\NormalTok{,}\DecValTok{12}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{7}\NormalTok{,}\DecValTok{8}\NormalTok{)}
+\KeywordTok{rank}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 4.5 4.5 1.0 2.0 3.0
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  먼저 나온 것에 우선 순위를 주는 방법
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{rank}\NormalTok{(x, }\DataTypeTok{ties.method=}\KeywordTok{c}\NormalTok{(}\StringTok{"first"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 4 5 1 2 3
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  임의 순위를 주는 방법
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{rank}\NormalTok{(x, }\DataTypeTok{ties.method =}\NormalTok{ (}\StringTok{"random"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 5 4 1 2 3
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsubsection{apply}\label{apply}
+
+\textbf{apply로 벡터 데이터 만들기}
+
+\begin{itemize}
+\tightlist
+\item
+  각 행에 2개의 변수 값들을 더하여 sum이라는 변수를 생성하여
+\item
+  히스토그램 생성
+\item
+  자료요약 함수 호출
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{geyser <-}\StringTok{ }\KeywordTok{read.table}\NormalTok{(}\StringTok{"geyser299.txt"}\NormalTok{, }\DataTypeTok{header=}\NormalTok{T)}
+\KeywordTok{hist}\NormalTok{(}\KeywordTok{apply}\NormalTok{(geyser, }\DecValTok{1}\NormalTok{, sum)) }\CommentTok{#1 : row}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{digest_files/figure-latex/unnamed-chunk-16-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(}\KeywordTok{apply}\NormalTok{(geyser, }\DecValTok{1}\NormalTok{, sum))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   47.33   63.23   79.03   75.78   85.88  109.95
+\end{verbatim}
+
+\textbf{apply로 리스트 데이터 만들기}
+
+\begin{itemize}
+\tightlist
+\item
+  각 변수마다 median 계산
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{lapply}\NormalTok{(geyser, median)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $waiting
+## [1] 76
+## 
+## $duration
+## [1] 4
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsubsection{loop}\label{loop}
+
+\textbf{loop를 활용해서 피보나치 수열 만들기}
+
+\begin{itemize}
+\tightlist
+\item
+  a, b의 초기값은 1
+\item
+  100 이하의 값만 출력
+\item
+  a, b는 20항 까지만 존재
+\item
+  피보나치 수열 : 첫째, 둘째 항이 1이고 그 뒤 모든 항은 바로 앞의 두개의
+  항의 합인 수열
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{a <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{20}\NormalTok{)}
+\NormalTok{b <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{20}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{3}\OperatorTok{:}\DecValTok{20}\NormalTok{) \{}
+\NormalTok{    a[i] <-}\StringTok{ }\NormalTok{a[i}\OperatorTok{-}\DecValTok{1}\NormalTok{] }\OperatorTok{+}\StringTok{ }\NormalTok{a[i}\OperatorTok{-}\DecValTok{2}\NormalTok{]}
+\NormalTok{    b[i] <-}\StringTok{ }\NormalTok{b[i}\OperatorTok{-}\DecValTok{1}\NormalTok{] }\OperatorTok{+}\StringTok{ }\NormalTok{b[i}\OperatorTok{-}\DecValTok{2}\NormalTok{]}
+\NormalTok{\}}
+\NormalTok{a[a }\OperatorTok{<}\StringTok{ }\DecValTok{100}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1]  1  1  2  3  5  8 13 21 34 55 89
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{b[b }\OperatorTok{<}\StringTok{ }\DecValTok{100}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1]  1  1  2  3  5  8 13 21 34 55 89
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsubsection{임의 수 생성}\label{--}
+
+\textbf{균일 분포로부터 임의 수를 생성하는 함수}
+
+\begin{itemize}
+\tightlist
+\item
+  최소, 최대의 경계가 각각 -1, 1
+\item
+  1000개를 생성
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\KeywordTok{runif}\NormalTok{(}\DecValTok{1000}\NormalTok{, }\OperatorTok{-}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{정규 분포로부터 임의 수를 생성하는 함수}
+
+\begin{itemize}
+\tightlist
+\item
+  1000개를 생성
+\item
+  평균 0, 표준편차 1
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1000}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{이항 분포로부터 임의 수를 생성하는 함수}
+
+\begin{itemize}
+\tightlist
+\item
+  1000개
+\item
+  크기 500
+\item
+  50\%
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\KeywordTok{rbinom}\NormalTok{(}\DecValTok{1000}\NormalTok{, }\DecValTok{500}\NormalTok{, }\FloatTok{0.5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{포아송분포로부터 임의 수를 생성하는 함수}
+
+\begin{itemize}
+\tightlist
+\item
+  1000개
+\item
+  lambda=5 (평균)
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\KeywordTok{rpois}\NormalTok{(}\DecValTok{1000}\NormalTok{, }\DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsubsection{R graphics: scatter plot}\label{r-graphics-scatter-plot}
+
+\textbf{geyser 자료에서 두 변수 waiting과 duration을 산점도 형태로 플롯}
+
+\begin{itemize}
+\tightlist
+\item
+  x 축의 범위를 40에서 110까지
+\item
+  y 축의 범위를 1에서 6까지
+\item
+  x 축의 레이블을 ``waiting time (min)''
+\item
+  y 축의 레이블을 ``duration (min)''
+\item
+  그래프 전체 제목 ``Geyser''
+\item
+  점 대신 케이스 번호
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{geyser <-}\StringTok{ }\KeywordTok{read.table}\NormalTok{(}\StringTok{"geyser299.txt"}\NormalTok{, }\DataTypeTok{header=}\NormalTok{T)}
+
+\KeywordTok{attach}\NormalTok{(geyser)}
+
+\KeywordTok{plot}\NormalTok{(duration }\OperatorTok{~}\StringTok{ }\NormalTok{waiting, }\DataTypeTok{xlim=}\KeywordTok{c}\NormalTok{(}\DecValTok{40}\NormalTok{, }\DecValTok{110}\NormalTok{), }\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{6}\NormalTok{), }\DataTypeTok{xlab=}\StringTok{"waiting time (min)"}\NormalTok{, }\DataTypeTok{ylab=}\StringTok{"duration (min)"}\NormalTok{, }\DataTypeTok{main=}\StringTok{"Geyser"}\NormalTok{, }\DataTypeTok{type =} \StringTok{"n"}\NormalTok{)}
+
+\KeywordTok{text}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ waiting, }\DataTypeTok{y =}\NormalTok{ duration, }\DataTypeTok{cex =} \FloatTok{0.75}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{digest_files/figure-latex/unnamed-chunk-23-1.pdf}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsubsection{R graphics: multiple
+frame}\label{r-graphics-multiple-frame}
+
+\textbf{여러 개의 그래프를 행렬 형태로 모아 찍기}
+
+\begin{itemize}
+\tightlist
+\item
+  파라미터가 다른 4개의 베타분포 beta(a, b) 생성
+\item
+  각각의 히스토그램 그리기
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x1 <-}\StringTok{ }\KeywordTok{rbeta}\NormalTok{(}\DecValTok{400}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\NormalTok{x2 <-}\StringTok{ }\KeywordTok{rbeta}\NormalTok{(}\DecValTok{400}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{)}
+\NormalTok{x4 <-}\StringTok{ }\KeywordTok{rbeta}\NormalTok{(}\DecValTok{400}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{4}\NormalTok{)}
+\NormalTok{x8 <-}\StringTok{ }\KeywordTok{rbeta}\NormalTok{(}\DecValTok{400}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{8}\NormalTok{)}
+
+\KeywordTok{par}\NormalTok{ (}\DataTypeTok{mfrow =} \KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+  \CommentTok{#2행 2열로 짜여진 다중 프레임}
+  \CommentTok{#mfrow: 행의 순서로 다중 프레임 그래프가 제시됨}
+  \CommentTok{#열의 순서로 제시하고자 한다면 mfcol}
+
+\KeywordTok{hist}\NormalTok{(x1, }\DataTypeTok{breaks =} \KeywordTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.1}\NormalTok{), }\DataTypeTok{freq =}\NormalTok{ F, }\DataTypeTok{ylim =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{3}\NormalTok{))}
+\KeywordTok{hist}\NormalTok{(x2, }\DataTypeTok{breaks =} \KeywordTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.1}\NormalTok{), }\DataTypeTok{freq =}\NormalTok{ F, }\DataTypeTok{ylim =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{3}\NormalTok{))}
+\KeywordTok{hist}\NormalTok{(x4, }\DataTypeTok{breaks =} \KeywordTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.1}\NormalTok{), }\DataTypeTok{freq =}\NormalTok{ F, }\DataTypeTok{ylim =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{3}\NormalTok{))}
+\KeywordTok{hist}\NormalTok{(x8, }\DataTypeTok{breaks =} \KeywordTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.1}\NormalTok{), }\DataTypeTok{freq =}\NormalTok{ F, }\DataTypeTok{ylim =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{3}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{digest_files/figure-latex/unnamed-chunk-24-1.pdf}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsubsection{그래프를 겹쳐 그리기}\label{--}
+
+\textbf{히스토그램과 곡선 그래프 겹쳐 그리기}
+
+\begin{itemize}
+\tightlist
+\item
+  히스토그램
+
+  \begin{itemize}
+  \tightlist
+  \item
+    자유도 df=5인 t분포로부터 1000개 랜덤 추출
+  \item
+    y 축의 단위 : 상대도수
+  \item
+    x 축의 범위 : (-5, 5)
+  \item
+    y 축의 범위 : (0, 0.4)
+  \item
+    계급 구간의 수 : 20
+  \item
+    x 축의 이름 : ``sumulated observations''
+  \item
+    그래프 이름 : ``t (df 5)''
+  \end{itemize}
+\item
+  곡선 그래프
+
+  \begin{itemize}
+  \tightlist
+  \item
+    히스토그램의 t분포와 동일한 평균과 표준편차를 갖는 정규분포
+  \end{itemize}
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\KeywordTok{rt}\NormalTok{(}\DecValTok{1000}\NormalTok{, }\DecValTok{5}\NormalTok{)}
+\KeywordTok{hist}\NormalTok{(x, }\DataTypeTok{freq=}\NormalTok{F, }\DataTypeTok{xlim=}\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\DecValTok{5}\NormalTok{, }\DecValTok{5}\NormalTok{), }\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FloatTok{0.4}\NormalTok{), }\DataTypeTok{nclass=}\DecValTok{20}\NormalTok{, }\DataTypeTok{xlab=}\StringTok{"simulated observations"}\NormalTok{, }\DataTypeTok{main=}\StringTok{"t (df 5)"}\NormalTok{)}
+  
+\NormalTok{m <-}\StringTok{ }\KeywordTok{mean}\NormalTok{(x)}
+\NormalTok{s <-}\StringTok{ }\KeywordTok{sd}\NormalTok{(x)}
+\KeywordTok{curve}\NormalTok{(}\KeywordTok{dnorm}\NormalTok{(x, m, s), }\DataTypeTok{add=}\NormalTok{T)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{digest_files/figure-latex/unnamed-chunk-25-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+  \CommentTok{# dnorm : 값에 해당하는 정규분포의 높이를 알려준다}
+  \CommentTok{# add=T : 겹쳐 그리기}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsubsection{사용자 정의 함수}\label{--}
+
+\textbf{왜도와 첨도를 구하는 함수 만들기}
+
+\begin{itemize}
+\tightlist
+\item
+  skew =
+  \includegraphics{https://wikimedia.org/api/rest_v1/media/math/render/svg/219794ebb3cc0511f30e7a537688f2107e2e4145}
+\item
+  kurto =
+  \includegraphics{https://wikimedia.org/api/rest_v1/media/math/render/svg/dc5edc576d8037e49bd5416f8d13af153b7cc4e7}
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{skew.and.kurto <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x)\{}
+
+\NormalTok{  num1 <-}\StringTok{ }\KeywordTok{mean}\NormalTok{((x}\OperatorTok{-}\KeywordTok{mean}\NormalTok{(x))}\OperatorTok{^}\DecValTok{3}\NormalTok{)}
+\NormalTok{  denom1 <-}\StringTok{ }\NormalTok{(}\KeywordTok{mean}\NormalTok{((x}\OperatorTok{-}\KeywordTok{mean}\NormalTok{(x))}\OperatorTok{^}\DecValTok{2}\NormalTok{))}\OperatorTok{^}\FloatTok{1.5}
+\NormalTok{  num2 <-}\StringTok{ }\KeywordTok{mean}\NormalTok{((x}\OperatorTok{-}\KeywordTok{mean}\NormalTok{(x))}\OperatorTok{^}\DecValTok{4}\NormalTok{)}
+\NormalTok{  denom2 <-}\StringTok{ }\NormalTok{(}\KeywordTok{mean}\NormalTok{((x}\OperatorTok{-}\KeywordTok{mean}\NormalTok{(x))}\OperatorTok{^}\DecValTok{2}\NormalTok{))}\OperatorTok{^}\DecValTok{2}
+\NormalTok{  skew <-}\StringTok{ }\NormalTok{num1}\OperatorTok{/}\NormalTok{denom1}
+\NormalTok{  kurto <-}\StringTok{ }\NormalTok{num2}\OperatorTok{/}\NormalTok{denom2 }\OperatorTok{-}\StringTok{ }\DecValTok{3}
+  
+  \KeywordTok{return}\NormalTok{(}\KeywordTok{c}\NormalTok{(skew, kurto))}
+\NormalTok{\}}
+
+\NormalTok{z <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1000}\NormalTok{)}
+\NormalTok{sk <-}\StringTok{ }\KeywordTok{skew.and.kurto}\NormalTok{(z)}
+\NormalTok{sk}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  0.09803964 -0.32338192
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsubsection{데이터 세트 병합하기}\label{--}
+
+\textbf{두 데이터 세트를 병합}
+
+\begin{itemize}
+\tightlist
+\item
+  data1과 data2를 병합
+\item
+  data1은 mid.txt에서 불러온다
+\item
+  data2는 finla.txt에서 불러온다
+\item
+  data1과 data2의 모두에서 id가 있는 레코드만 data1.and.2에 병합
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data1 <-}\StringTok{ }\KeywordTok{read.table}\NormalTok{(}\StringTok{"mid.txt"}\NormalTok{, }\DataTypeTok{header=}\NormalTok{T) ;data1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   id mid
+## 1 23  43
+## 2  4  56
+## 3 78  29
+## 4 54  99
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data2 <-}\StringTok{ }\KeywordTok{read.table}\NormalTok{(}\StringTok{"final.txt"}\NormalTok{, }\DataTypeTok{header=}\NormalTok{T) ;data2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   id mid
+## 1  4  77
+## 2 23   2
+## 3 54  19
+## 4 70  31
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data1.and.}\DecValTok{2}\NormalTok{ <-}\StringTok{ }\KeywordTok{merge}\NormalTok{(}\DataTypeTok{x=}\NormalTok{data1, }\DataTypeTok{y=}\NormalTok{data2, }\DataTypeTok{by.x=}\StringTok{"id"}\NormalTok{, }\DataTypeTok{by.y=}\StringTok{"id"}\NormalTok{) ;data1.and.}\DecValTok{2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   id mid.x mid.y
+## 1  4    56    77
+## 2 23    43     2
+## 3 54    99    19
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  data1과 data2중 id가 있기만 하면 병합파일에 포함되도록 하는 방법
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data1.and.}\DecValTok{2}\NormalTok{ <-}\StringTok{ }\KeywordTok{merge}\NormalTok{(}\DataTypeTok{x=}\NormalTok{data1, }\DataTypeTok{y=}\NormalTok{data2, }\DataTypeTok{by.x=}\StringTok{"id"}\NormalTok{, }\DataTypeTok{by.y=}\StringTok{"id"}\NormalTok{, }\DataTypeTok{all=}\NormalTok{T) ;data1.and.}\DecValTok{2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   id mid.x mid.y
+## 1  4    56    77
+## 2 23    43     2
+## 3 54    99    19
+## 4 70    NA    31
+## 5 78    29    NA
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+  \CommentTok{#all=T를 붙여준다}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsubsection{데이터 세트 분할}\label{--}
+
+\textbf{함수 split() 사용하기}
+
+\begin{itemize}
+\tightlist
+\item
+  1과 2만을 갖는 크기 5의 벡터 `gr' 생성
+\item
+  벡터를 범주형 변수화
+\item
+  범주 이름은 ``low'', ``high''
+\item
+  시험 점수 값을 갖는 크기 5의 벡터 `score' 생성
+\item
+  score 데이터를 gr 범주를 기준으로 분리한 score.split 생성
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gr <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{)}
+\NormalTok{gr <-}\StringTok{ }\KeywordTok{factor}\NormalTok{(gr)}
+\KeywordTok{levels}\NormalTok{(gr) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"low"}\NormalTok{, }\StringTok{"high"}\NormalTok{)}
+\NormalTok{score <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{98}\NormalTok{, }\DecValTok{82}\NormalTok{, }\DecValTok{45}\NormalTok{, }\DecValTok{23}\NormalTok{, }\DecValTok{74}\NormalTok{)}
+\NormalTok{score <-}\StringTok{ }\KeywordTok{split}\NormalTok{(score,gr) ;score}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $low
+## [1] 98 45 23
+## 
+## $high
+## [1] 82 74
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsubsection{외부 데이터 파일 읽기}\label{---}
+
+\textbf{SPSS 데이터나 SAS 데이터 파일을 읽는 방법}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(foreign)}
+\NormalTok{ee <-}\StringTok{ }\KeywordTok{read.spss}\NormalTok{(}\StringTok{"EEstock2000.sav"}\NormalTok{)}
+\KeywordTok{str}\NormalTok{(ee)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## List of 4
+##  $ date  : num [1:1349] 1.32e+10 1.32e+10 1.32e+10 1.32e+10 1.32e+10 ...
+##  $ index : num [1:1349] 4665 4301 4218 4132 4255 ...
+##  $ diff  : num [1:1349] 441.6 -364.5 -82.7 -86.2 123.5 ...
+##  $ change: num [1:1349] 10.46 -7.81 -1.92 -2.04 2.99 ...
+##  - attr(*, "label.table")=List of 4
+##   ..$ date  : NULL
+##   ..$ index : NULL
+##   ..$ diff  : NULL
+##   ..$ change: NULL
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+
+\end{document}

@@ -1,0 +1,450 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
+###행렬과 배열
+__같은 유형의 두 벡터를 결합해서 행렬 생성__
+
+* x, y를 이용하여 열의 개수가 2인 행렬 M 생성
+* x : 2, 2, 4
+* y : 1.2, 3, 4.8
+
+```{r}
+x <- c(2, 2, 4)
+y <- c(1.2, 3, 4.8)
+M <- matrix(c(x, y), ncol=2, byrow=F) ;M
+  #또는 열결합 함수 cbind(x,y)를 이용할 수도 있다
+  #byrow : true->가로방향으로 순차적으로 행렬의 요소를 할당
+```
+\
+__다른 유형의 벡터를 결합하여 리스트생성__
+
+* x, y, a를 결합한 리스트 L 생성
+* 각 벡터(변수)의 이름 x: kor, y: math, a: grade
+* a : "low", "high", "high"
+
+```{r}
+a <- c("low", "high", "high")
+L <- list(kor=x, math=y, grade=a) ;L
+```
+\
+__자동으로 벡터 생성__
+
+1. 1에서 시작하여 20까지 1의 간격으로 값을 만드는 함수
+2. 1을 10회 반복하여 벡터를 만드는 함수
+```{r}
+#1 
+seq(1, 20, 1)
+#2
+rep(1, 10)
+```
+
+\
+__3차원 배열 생성__
+
+* M1 <- cbind(c(2, 2, 3), c(1.2, 3.0, 4.8))
+* M2 <- cbind(c(1, 2, 3), c(4.2, 2.1, 1.9))
+* M1과 M2를 결합하여 만든 3x2x2 배열 A
+
+```{r}
+M1 <- cbind(c(2, 2, 3), c(1.2, 3.0, 4.8))
+M2 <- cbind(c(1, 2, 3), c(4.2, 2.1, 1.9))
+A <- array(c(M1, M2), c(3, 2, 2)) ;A
+```
+
+***
+
+###행렬 관련 함수
+
+__행렬 M (3x2) 에대해 다음의 함수 호출__
+
+1. M1 <- M의 전치행렬 * M
+2. M1의 역행렬
+3. E <- M1의 대칭행렬
+4. E를 사용하여 원래 M1 만들기
+
+```{r}
+M1 <- t(M) %*% M ;M1 #전치행렬: 행과 열을 치환
+solve(M1) #역행렬
+E <- eigen(M1) ;E #대칭행렬
+E$vectors %*% diag(E$values) %*% t(E$vectors) #diag:대각행렬
+```
+
+***
+
+###논리 연산, 결측값,
+
+__true-false를 1-0으로 바꾸는 함수__
+
+```{r}
+C <- c(T, T, F, F)
+as.numeric(C)
+```
+
+\
+__결측값을 포함하는 자료 x에서 결측값을 제거하여 평균 구하기__
+
+```{r}
+mean(x, na.rm=T)
+```
+
+***
+###factors
+
+__수치형 변수를 범주형 변수로 바꾸기__
+
+* species <- c(1,3,2,3)
+* species를 1:3 수준의 요인으로 바꾼 species.f를 정의
+* species.f의 각 수준의 이름을 각각 "setosa", "versicolor", "virginica"
+```{r}
+species <- c(1,3,2,3)
+species.f <- factor(species, levels = 1:3)
+levels(species.f) <- c("species", "versicolor", "virginica")
+```
+\
+__species.f의 수준별 빈도를 구하는 함수 호출__
+```{r}
+table(species.f)
+```
+
+***
+
+###자료 변환과 데이터 부분세트
+
+__x와 y를 더하여 tot라는 변수를 만들고 d2에 이 변수를 추가하여 d2a라는 리스트 만들기__
+
+* x: 45, 32, 34, 28, 80
+* y: 23, 37, 12, 76, 65
+* 변수명 : kor, eng
+
+```{r}
+x <- c(45, 32, 34, 28, 80)
+y <- c(23, 37, 12, 76, 65)
+d2 <- list(kor = x, eng = y) ;d2
+d2a <- transform(d2, tot = kor + eng) ;d2a
+```
+
+\
+__d2a의 tot > 100인 레코드만 남긴 d3 생성__
+
+```{r}
+d3 <- subset(d2a, tot > 100) ;d3
+```
+
+***
+
+###순서정렬과 순위
+
+__order()의 용법__
+
+```{r}
+x <- c(12,6,4,7,8)
+order(x)
+#첫번째에 와야할 요소의 위치...
+```
+\
+
+__순위를 구하는 함수에서 등순위를 처리하는 방법들__
+
+* default - 평균 순위
+```{r}
+x <- c(12,12,4,7,8)
+rank(x)
+```
+* 먼저 나온 것에 우선 순위를 주는 방법
+```{r}
+rank(x, ties.method=c("first"))
+```
+* 임의 순위를 주는 방법
+```{r}
+rank(x, ties.method = ("random"))
+```
+
+***
+
+###apply
+
+__apply로 벡터 데이터 만들기__
+
+* geyser 데이터에 대하여
+* 각 행에 2개의 변수 값들을 더하여 sum이라는 변수를 생성하여
+* 히스토그램 생성
+* 자료요약 함수 호출
+```{r}
+geyser <- read.table("geyser299.txt", header=T)
+hist(apply(geyser, 1, sum)) #1 : row
+summary(apply(geyser, 1, sum))
+```
+
+\
+__apply로 리스트 데이터 만들기__
+
+* 각 변수마다 median 계산
+```{r}
+lapply(geyser, median)
+```
+
+***
+
+###loop
+
+__loop를 활용해서 피보나치 수열 만들기__
+
+* a, b의 초기값은 1
+* 100 미만의 값만 출력
+* a, b는 20항 까지만 존재
+* 피보나치 수열 : 첫째, 둘째 항이 1이고 그 뒤 모든 항은 바로 앞의 두개의 항의 합인 수열
+
+```{r}
+a <- rep(1,20)
+b <- rep(1,20)
+for (i in 3:20) {
+    a[i] <- a[i-1] + a[i-2]
+    b[i] <- b[i-1] + b[i-2]
+}
+a[a < 100]
+b[b < 100]
+```
+
+***
+
+###임의 수 생성
+
+__균일 분포로부터 임의 수를 생성하는 함수__
+
+* 최소, 최대의 경계가 각각 -1, 1
+* 1000개를 생성
+```{r}
+x <- runif(1000, -1, 1)
+```
+
+\
+
+__정규 분포로부터 임의 수를 생성하는 함수__
+
+* 1000개를 생성
+* 평균 0, 표준편차 1
+```{r}
+x <- rnorm(1000, 0, 1)
+```
+
+\
+__이항 분포로부터 임의 수를 생성하는 함수__
+
+* 1000개
+* 크기 500
+* 50%
+
+```{r}
+x <- rbinom(1000, 500, 0.5)
+```
+
+\
+__포아송분포로부터 임의 수를 생성하는 함수__
+
+* 1000개
+* lambda=5 (평균)
+
+```{r}
+x <- rpois(1000, 5)
+```
+
+***
+
+###R graphics: scatter plot
+
+__geyser 자료에서 두 변수 waiting과 duration을 산점도 형태로 플롯__
+
+* x 축의 범위를 40에서 110까지
+* y 축의 범위를 1에서 6까지
+* x 축의 레이블을 "waiting time (min)"
+* y 축의 레이블을 "duration (min)"
+* 그래프 전체 제목 "Geyser"
+* 점 대신 케이스 번호
+
+```{r}
+geyser <- read.table("geyser299.txt", header=T)
+
+attach(geyser)
+
+plot(duration ~ waiting, xlim=c(40, 110), ylim=c(1, 6), xlab="waiting time (min)", ylab="duration (min)", main="Geyser", type = "n")
+
+text(x = waiting, y = duration, cex = 0.75)
+```
+
+***
+
+###R graphics: multiple frame
+
+__여러 개의 그래프를 행렬 형태로 모아 찍기__
+
+* 파라미터가 다른 4개의 베타분포 beta(a, b) 생성
+* 2행 2열의 다중 프레임 선언
+* 행의 순서로 다중 프레임 입력
+* 각각의 히스토그램 그리기
+* x축 0에서 1까지 0.1간격
+* y축 상대도수
+* y축의 범위 0부터 3까지
+
+```{r}
+x1 <- rbeta(400, 1, 1)
+x2 <- rbeta(400, 2, 2)
+x4 <- rbeta(400, 4, 4)
+x8 <- rbeta(400, 8, 8)
+
+par (mfrow = c(2,2))
+  #2행 2열로 짜여진 다중 프레임
+  #mfrow: 행의 순서로 다중 프레임 그래프가 제시됨
+  #열의 순서로 제시하고자 한다면 mfcol
+
+hist(x1, breaks = seq(0, 1, 0.1), freq = F, ylim = c(0, 3))
+hist(x2, breaks = seq(0, 1, 0.1), freq = F, ylim = c(0, 3))
+hist(x4, breaks = seq(0, 1, 0.1), freq = F, ylim = c(0, 3))
+hist(x8, breaks = seq(0, 1, 0.1), freq = F, ylim = c(0, 3))
+```
+
+***
+
+###그래프를 겹쳐 그리기
+
+__히스토그램과 곡선 그래프 겹쳐 그리기__
+
+* 히스토그램
+    * 자유도 df=5인 t분포로부터 1000개 랜덤 추출
+    * y 축의 단위 : 상대도수
+    * x 축의 범위 : (-5, 5)
+    * y 축의 범위 : (0, 0.4)
+    * 계급 구간의 수 : 20
+    * x 축의 이름 : "sumulated observations"
+    * 그래프 이름 : "t (df 5)"
+* 곡선 그래프
+    * 히스토그램의 t분포와 동일한 평균과 표준편차를 갖는 정규분포
+
+```{r}
+x <- rt(1000, 5)
+hist(x, freq=F, xlim=c(-5, 5), ylim=c(0, 0.4), nclass=20, xlab="simulated observations", main="t (df 5)")
+  
+m <- mean(x)
+s <- sd(x)
+curve(dnorm(x, m, s), add=T)
+  # dnorm : 값에 해당하는 정규분포의 높이를 알려준다
+  # add=T : 겹쳐 그리기
+```
+***
+
+###사용자 정의 함수
+
+__왜도와 첨도를 구하는 함수 만들기__
+
+* skew = ![](https://wikimedia.org/api/rest_v1/media/math/render/svg/219794ebb3cc0511f30e7a537688f2107e2e4145)
+* kurto = ![](https://wikimedia.org/api/rest_v1/media/math/render/svg/dc5edc576d8037e49bd5416f8d13af153b7cc4e7)
+
+```{r}
+skew.and.kurto <- function(x){
+
+  num1 <- mean((x-mean(x))^3)
+  denom1 <- (mean((x-mean(x))^2))^1.5
+  num2 <- mean((x-mean(x))^4)
+  denom2 <- (mean((x-mean(x))^2))^2
+  skew <- num1/denom1
+  kurto <- num2/denom2 - 3
+  
+  return(c(skew, kurto))
+}
+
+z <- rnorm(1000)
+sk <- skew.and.kurto(z)
+sk
+```
+***
+
+###데이터 세트 병합하기
+
+__두 데이터 세트를 병합__ 
+
+* data1과 data2를 병합
+* data1은 mid.txt에서 불러온다
+* data2는 finla.txt에서 불러온다
+* data1과 data2의 모두에서 id가 있는 레코드만 data1.and.2에 병합
+
+```{r}
+data1 <- read.table("mid.txt", header=T) ;data1
+data2 <- read.table("final.txt", header=T) ;data2
+data1.and.2 <- merge(x=data1, y=data2, by.x="id", by.y="id") ;data1.and.2
+```
+* data1과 data2중 id가 있기만 하면 병합파일에 포함되도록 하는 방법
+
+```{r}
+data1.and.2 <- merge(x=data1, y=data2, by.x="id", by.y="id", all=T) ;data1.and.2
+  #all=T를 붙여준다
+```
+
+***
+
+###데이터 세트 분할
+
+__함수 split() 사용하기__
+
+* gr : 1, 2, 1, 1, 2
+* 벡터를 범주형 변수화
+* 범주 이름은 "low", "high"
+* score : 98, 82, 45, 23, 74
+* score 데이터를 gr 범주를 기준으로 분리한 score.split 생성
+
+```{r}
+gr <- c(1, 2, 1, 1, 2)
+gr <- factor(gr)
+levels(gr) <- c("low", "high")
+score <- c(98, 82, 45, 23, 74)
+score.split <- split(score,gr) ;score.split
+```
+
+***
+
+###외부 데이터 파일 읽기
+
+__SPSS 데이터나 SAS 데이터 파일을 읽는 방법__
+
+* spss파일 "EEstock2000.sav"을 ee에 저장
+* ee의 자료 메타정보 출력
+
+```{r}
+library(foreign)
+ee <- read.spss("EEstock2000.sav")
+str(ee)
+```
+
+***
+
+###신뢰 구간 시뮬레이션
+
+__실제 모평균이 신뢰 구간 안에 있는지 판단__
+
+* 모평균 : 500
+* 모표준편차 : 100 (모분산기지)
+* 표본 : 100
+
+```{r}
+nreps <- 1000
+
+ll <- numeric(nreps)
+ul <- numeric(nreps)
+
+n <- 100
+mu <- 500
+sigma <- 100
+
+for (i in 1:nreps) {
+  set.seed(i)
+  x <- rnorm(n, mu, sigma)
+  ll[i] <- mean(x) - qnorm(0.975)*sqrt(sigma^2/n)
+  ul[i] <- mean(x) + qnorm(0.975)*sqrt(sigma^2/n)
+}
+
+which(ll >= 500)
+which(ul <= 500)
+mean( ll<=500 & ul>=500 )
+table(ll >= 500)
+table(ul <= 500)
+```
